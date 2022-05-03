@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+<!-- needs to show new hero and existing hero -->
+{% block body %}
+{% if p_id == None %}
+    <h4>Existing Hero</h4>
+{% endif %}
+{% for hero in heroes %}
+<form action="/load_hero" method="POST">
+    <div class="heroes">
+        <ul>Name: {{ hero[2].capitalize() }}
+            <input hidden value="{{ hero[0] }}" name="id">
+            <li>Class: {{ hero[3] }}</li>
+            <li>ATK: {{ hero[4] }}</li>
+            <li>HP: {{ hero[5] }}</li>
+            <li>MP: {{ hero[6] }}</li>
+            <li>Current save: <em>{{ location.capitalize() }}</em></li>
+        </ul>
+        <input type="submit" value="Choose {{ hero[2].capitalize() }}">
+    </div>
+</form>
+{% endfor %}
+<form action="/create_hero" method="POST">
+    <div class="heroes" id="new-hero" type="submit" required></div>
+    <h4>New Hero</h4>
+    Name: <input type="text" name="hero_name">
+    Class: <select name="hero_class">
+        <option value="Knight">Knight</option>
+        <option value="Mage">Mage</option>
+        <option value="Thief">Thief</option>
+        <option value="Lucky Liero">Lucky Liero</option>
+    </select>
+    <input type="submit">
+</form>
+
+{% endblock %}

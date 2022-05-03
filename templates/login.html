@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+<!-- if cookies enabled, auto-load -->
+{% block body %}
+<form action="/load" method="POST">
+    Email Address: <input type="text" name="email">
+    Password: <input type="password" name="password">
+    <input type="submit">
+</form>
+
+<div>
+    <a class="start-button" href="/newgame">New Game</a>
+</div>
+{% endblock %}

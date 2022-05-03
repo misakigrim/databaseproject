@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mighty Badlands</title>
+</head>
+<body>
+    {% for stat in stats %}
+    <div class="hero-stats">
+        <!-- {{ stats }} -->
+        <p>Name: {{ stat[2] }}</p>
+        <p>Class: {{ stat[3] }}</p>
+        <p>ATK: {{ stat[4] }}</p>
+        <p>HP: {{ stat[5] }}</p>
+        <p>MP: {{ stat[6] }}</p>
+    </div>
+    {% endfor %}
+    <!-- <img src="#" alt="a {{ loc_name }}"> -->
+    <p>{{ plot }}</p>
+    <button onclick="window.location.href">Choice 1</button>
+    <button>Choice 2</button>
+    <button>Choice 3</button>
+
+</body>
+</html>

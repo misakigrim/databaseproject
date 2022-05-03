@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form action="/newgame" method="POST">
+    Email Address: <input type="text" name="email">
+    Password: <input type="password" name="password">
+    Traveler Name: <input type="text" name="t_name">
+    <input type="submit">
+</form>
+
+{% endblock %}

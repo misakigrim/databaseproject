@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% if not name %}
+    <a class="start-button" href="/newgame">New Game</a>
+    <a class="start-button" href="/loadgame">Load Game</a>
+    <a href="/rules">How to play</a>
+{% else %}
+    <p>Welcome back, Traveler {{ name }} </p>
+    <a class="start-button" href="/choose_hero">Load Game</a>
+    <a href="/rules">How to play</a>
+    <a href="/exit">Log out</a>
+{% endif %}
+{% endblock %}
