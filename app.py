@@ -46,6 +46,7 @@ def loadgame():
 @app.route('/load', methods=['POST'])
 def load():
     email = request.form.get('email')
+    session['email'] = email
     password = request.form.get('password')
 
     if not email:
@@ -75,14 +76,18 @@ def load():
 @app.route('/choose_hero')
 def choose_hero():
     p_id = session.get('p_id')
+    # print(p_id)
     # need to replace mbgame with DATABASE_URL
     if p_id != None:
+        # email = session.get('email')
         results = sql_fetch('SELECT * FROM heroes INNER JOIN players ON heroes.p_id = players.id WHERE players.id = %s', [p_id])
+        # print(results)
         hero_id = results[0][0]
         session['hero_id'] = hero_id
         location = sql_fetch('SELECT name FROM locations INNER JOIN heroes ON locations.id = heroes.location_id WHERE heroes.id = %s', [hero_id])
         location = location[0][0]
         return render_template('heroes.html', heroes=results, location=location, p_id=p_id)
+        # return redirect('/loadgame')
     elif p_id == None: 
         t_name = session.get('t_name')
         results = sql_fetch('SELECT * FROM players WHERE name = %s', [t_name])
@@ -121,17 +126,38 @@ def load_hero():
 
 @app.route('/location/<loc_num>')
 def location(loc_num):
+    # updating loc_num
     hero_id = session.get('hero_id')
     hero_stats = sql_fetch('SELECT * FROM heroes WHERE id = %s', [hero_id])
-
     sql_write('UPDATE heroes SET location_id = %s WHERE id = %s', [loc_num, hero_id])
-    
+
+    # appointing plot 
     results = sql_fetch('SELECT * FROM locations WHERE id = %s', [loc_num])
     for result in results:
         loc_name = result[1]
         plot = result[2]
-    
-    return render_template('location.html', loc_name=loc_name, plot=plot, stats=hero_stats)
+        c1 = result[3]
+        c2 = result[4]
+        c3 = result[5]
+
+    # choice tree
+    movements = sql_fetch('SELECT m1, m2, m3 FROM locations WHERE id = %s', [loc_num])
+    # print(movements)
+    for move in movements:
+        m1 = move[0]
+        if move[1]:
+            m2 = move[1]
+        if move[2]:
+            m3 = move[2]
+            return render_template('location.html', loc_name=loc_name, plot=plot, stats=hero_stats, m1=m1, m2=m2, m3=m3, c1=c1, c2=c2, c3=c3, results=results)
+        
+        else:
+            results = sql_fetch('SELECT * FROM locations WHERE id = %s', [loc_num])
+            for result in results:
+                loc_name = result[1]
+                plot = result[2]
+            return render_template('location.html', loc_name=loc_name, plot=plot, stats=hero_stats, m1=m1, m2=m2, c1=c1, c2=c2, results=results)
+       
 
 @app.route('/exit')
 def exit():

@@ -7,7 +7,7 @@ DB_URL = os.environ.get("DATABASE_URL", "dbname=mbgame")
 # Example:
 # results = sql_fetch('SELECT * FROM food WHERE id = %s', [id])
 def sql_fetch(query, parameters=[]):
-  conn = psycopg2.connect('dbname=mbgame')
+  conn = psycopg2.connect(DB_URL)
   cur = conn.cursor()
   cur.execute(query, parameters)
   results = cur.fetchall()
@@ -18,7 +18,7 @@ def sql_fetch(query, parameters=[]):
 # Example:
 # sql_write('INSERT INTO food (name, price) VALUES (%s, %s)', [name, price])
 def sql_write(query, parameters=[]):
-  conn = psycopg2.connect('dbname=mbgame')
+  conn = psycopg2.connect(DB_URL)
   cur = conn.cursor()
   cur.execute(query, parameters)
   conn.commit()

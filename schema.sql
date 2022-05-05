@@ -1,14 +1,38 @@
+DROP TABLE IF EXISTS items CASCADE;
+DROP TABLE IF EXISTS encounters CASCADE;
 DROP TABLE IF EXISTS locations CASCADE;
 DROP TABLE IF EXISTS players CASCADE;
-DROP TABLE IF EXISTS specials CASCADE;
+-- DROP TABLE IF EXISTS specials CASCADE;
 DROP TABLE IF EXISTS classes CASCADE;
-DROP TABLE IF EXISTS encounters CASCADE;
 DROP TABLE IF EXISTS heroes CASCADE;
+
+CREATE TABLE items (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    gift INTEGER NOT NULL
+);
+
+CREATE TABLE encounters (
+    id SERIAL PRIMARY KEY,
+    enc_type TEXT NOT NULL,
+    enc_atk INTEGER,
+    enc_hp INTEGER
+);
 
 CREATE TABLE locations (
     id SERIAL PRIMARY KEY,
     name TEXT,
-    plot TEXT
+    plot TEXT,
+    c1 TEXT,
+    c2 TEXT,
+    c3 TEXT,
+    m1 INTEGER,
+    m2 INTEGER,
+    m3 INTEGER,
+    cost INTEGER,
+    enc INTEGER REFERENCES encounters(id),
+    item INTEGER REFERENCES items(id),
+    img TEXT
 );
 
 CREATE TABLE players (
@@ -18,11 +42,11 @@ CREATE TABLE players (
     name VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE specials (
-    sp_name TEXT NOT NULL PRIMARY KEY,
-    sp_atk INTEGER,
-    mp_val INTEGER
-);
+-- CREATE TABLE specials (
+--     sp_name TEXT NOT NULL PRIMARY KEY,
+--     sp_atk INTEGER,
+--     mp_val INTEGER
+-- );
 
 CREATE TABLE classes (
     hero_class VARCHAR(20) NOT NULL PRIMARY KEY,
@@ -31,14 +55,6 @@ CREATE TABLE classes (
     hero_mp INTEGER
     -- sp_1 TEXT REFERENCES specials(sp_name),
     -- sp_2 TEXT REFERENCES specials(sp_name)
-);
-
-CREATE TABLE encounters (
-    id SERIAL PRIMARY KEY,
-    enc_type TEXT NOT NULL,
-    enc_atk INTEGER,
-    enc_hp INTEGER,
-    enc_gift INTEGER
 );
 
 CREATE TABLE heroes (
