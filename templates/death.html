@@ -10,25 +10,20 @@
 <body>
     {% for stat in stats %}
     <div class="hero-stats">
-        {{ stats }}<br>
-        {{ results }}
         <p>Name: {{ stat[2] }}</p>
         <p>Class: {{ stat[3] }}</p>
         <p>ATK: {{ stat[4] }}</p>
         <p>HP: {{ stat[5] }}</p>
         <p>MP: {{ stat[6] }}</p>
-        <button onclick="window.location.href='/bag'">View Bag</button>
     </div>
     {% endfor %}
+    <h1>You Died.</h1>
     <!-- <img src="#" alt="a {{ loc_name }}"> -->
-    <p>{{ plot }}</p>
+
+    <p>Running out of health sucks. Should've stocked up on some FLASK potions...</p>
     <div>
     <!-- https://stackoverflow.com/questions/34126316/adding-onclick-and-window-location-href -->
-        <button onclick='window.location.href="/location/{{ m1 }}"'>{{ c1 }}</button>
-        <button onclick='window.location.href="/location/{{ m2 }}"'>{{ c2 }}</button>
-        {% if m3 %}
-        <button onclick='window.location.href="/location/{{ m3 }}"'>{{ c3 }}</button>
-        {% endif %}
+        <button onclick='window.location.href="/choosehero"'>Start Over.</button>
     </div>
 </body>
 </html>

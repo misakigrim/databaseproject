@@ -5,11 +5,20 @@ DROP TABLE IF EXISTS players CASCADE;
 -- DROP TABLE IF EXISTS specials CASCADE;
 DROP TABLE IF EXISTS classes CASCADE;
 DROP TABLE IF EXISTS heroes CASCADE;
+DROP TABLE IF EXISTS bag CASCADE;
+
 
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
+    item_name TEXT NOT NULL,
     gift INTEGER NOT NULL
+);
+
+CREATE TABLE bag (
+    bag_id SERIAL PRIMARY KEY,
+    item_id INTEGER REFERENCES items(id),
+    item_quantity INTEGER,
+    item_effect INTEGER 
 );
 
 CREATE TABLE encounters (
@@ -31,7 +40,7 @@ CREATE TABLE locations (
     m3 INTEGER,
     cost INTEGER,
     enc INTEGER REFERENCES encounters(id),
-    item INTEGER REFERENCES items(id),
+    item_id INTEGER REFERENCES items(id),
     img TEXT
 );
 
@@ -52,7 +61,8 @@ CREATE TABLE classes (
     hero_class VARCHAR(20) NOT NULL PRIMARY KEY,
     hero_atk INTEGER,
     hero_hp INTEGER,
-    hero_mp INTEGER
+    hero_mp INTEGER,
+    item INTEGER REFERENCES items(id)
     -- sp_1 TEXT REFERENCES specials(sp_name),
     -- sp_2 TEXT REFERENCES specials(sp_name)
 );
@@ -66,6 +76,7 @@ CREATE TABLE heroes (
     hero_hp INTEGER, 
     hero_mp INTEGER, 
     -- hero_item TEXT REFERENCES encounters(enc_type),
-    location_id INTEGER REFERENCES locations(id)
+    location_id INTEGER REFERENCES locations(id),
+    items INTEGER REFERENCES bag(bag_id)
 );
 

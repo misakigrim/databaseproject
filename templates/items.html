@@ -6,29 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mighty Badlands</title>
     <link rel="stylesheet" href="static/game.css">
+    <script defer src="static/js/bag.js"></script>
 </head>
 <body>
     {% for stat in stats %}
     <div class="hero-stats">
-        {{ stats }}<br>
-        {{ results }}
         <p>Name: {{ stat[2] }}</p>
         <p>Class: {{ stat[3] }}</p>
         <p>ATK: {{ stat[4] }}</p>
         <p>HP: {{ stat[5] }}</p>
         <p>MP: {{ stat[6] }}</p>
-        <button onclick="window.location.href='/bag'">View Bag</button>
     </div>
     {% endfor %}
-    <!-- <img src="#" alt="a {{ loc_name }}"> -->
-    <p>{{ plot }}</p>
+
+    <h1>Your Bag</h1>
+
+    {% for item in items %}
+    <div class="items">
+        <p>Item Name: {{ item[5] }}</p>
+        <p>Item Quantity: {{ item[2] }}</p>
+    </div>
+    {% endfor %}
+
     <div>
     <!-- https://stackoverflow.com/questions/34126316/adding-onclick-and-window-location-href -->
-        <button onclick='window.location.href="/location/{{ m1 }}"'>{{ c1 }}</button>
-        <button onclick='window.location.href="/location/{{ m2 }}"'>{{ c2 }}</button>
-        {% if m3 %}
-        <button onclick='window.location.href="/location/{{ m3 }}"'>{{ c3 }}</button>
-        {% endif %}
+        <button onclick='window.location.href="/location/{{ loc_num }}"'>Return to adventure</button>
     </div>
 </body>
 </html>
