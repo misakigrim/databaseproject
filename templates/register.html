@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<br>
 <form action="/newgame" method="POST">
-    Email Address: <input type="text" name="email">
-    Password: <input type="password" name="password">
-    Traveler Name: <input type="text" name="t_name">
-    <input type="submit">
+    <div class="register">
+        Email Address: <input id="email" type="text" name="email"><br>
+        Password: <input id="password" type="password" name="password"><br>
+        Traveler Name: <input id="t_name" type="text" name="t_name"><br>
+        <input id="submit" type="submit">
+    </div>
 </form>
 
 {% endblock %}

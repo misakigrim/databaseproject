@@ -39,7 +39,7 @@ CREATE TABLE locations (
     m2 INTEGER,
     m3 INTEGER,
     cost INTEGER,
-    enc INTEGER REFERENCES encounters(id),
+    -- enc INTEGER REFERENCES encounters(id),
     item_id INTEGER REFERENCES items(id),
     img TEXT
 );

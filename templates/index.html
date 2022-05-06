@@ -1,15 +1,23 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
+<br>
+<br>
+<img class="start-page-img" src="/static/images/{{ assorted }}" alt="random preview">
+<br>
+<br>
 {% if not name %}
-    <a class="start-button" href="/newgame">New Game</a>
-    <a class="start-button" href="/loadgame">Load Game</a>
-    <a href="/rules">How to play</a>
+    <div class="start">
+        <a class="start-button" href="/newgame">New Game</a>
+        <a class="start-button" href="/loadgame">Load Game</a>
+        <a href="/rules">How to play</a>
+    </div>  
 {% else %}
-    <p>Welcome back, Traveler {{ name }} </p>
-    <a class="start-button" href="/choose_hero">Load Game</a>
-    <a href="/rules">How to play</a>
-    <a href="/exit">Log out</a>
+    <div class="start">
+        <p>Welcome back, Traveler {{ name }} </p><br>
+        <a class="start-button" href="/choose_hero">Load Game</a>
+        <a href="/rules">How to play</a>
+        <a href="/exit">Log out</a>
+    </div>
 {% endif %}
 {% endblock %}

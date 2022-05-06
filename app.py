@@ -4,6 +4,7 @@ import psycopg2
 import os
 import requests
 import bcrypt
+import random
 DATABASE_URL = os.environ.get('DATABASE_URL', 'dbname=mbgame')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'pretend secret key for testing')
 
@@ -12,10 +13,13 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.route('/')
 def index():
-    return render_template('index.html', name=session.get('t_name'))
+    num = random.randint(1,73)
+    assorted = f"{num}.png"
+    return render_template('index.html', name=session.get('t_name'), assorted=assorted)
 
 @app.route('/newgame')
 def register():
+    session.clear()
     return render_template('register.html')
 
 @app.route('/newgame', methods=['POST'])
@@ -23,11 +27,15 @@ def register_action():
     t_name = request.form.get('t_name')
     email = request.form.get('email')
     password = request.form.get('password')
-    password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
-    sql_write('INSERT INTO players (email, password_hash, name) VALUES (%s, %s, %s)', [email, password_hash, t_name])
-    session['t_name'] = t_name
-    return redirect('/choose_hero')
+    if not t_name or not email or not password:
+        return redirect('/newgame')
+
+    else: 
+        password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        sql_write('INSERT INTO players (email, password_hash, name) VALUES (%s, %s, %s)', [email, password_hash, t_name])
+        session['t_name'] = t_name
+        return redirect('/choose_hero')
 
 @app.route('/loadgame')
 def loadgame():
@@ -161,8 +169,6 @@ def location(loc_num):
         c1 = result[3]
         c2 = result[4]
         c3 = result[5]
-        img = result[12]
-
 
     # choice tree
     movements = sql_fetch('SELECT m1, m2, m3 FROM locations WHERE id = %s', [loc_num])
@@ -175,6 +181,20 @@ def location(loc_num):
             m3 = move[2]
             return render_template('location.html', loc_num=loc_num, loc_name=loc_name, plot=plot, stats=hero_stats, m1=m1, m2=m2, m3=m3, c1=c1, c2=c2, c3=c3, results=results)
         
+        elif not move[0]:
+            results = sql_fetch('SELECT * FROM locations WHERE id = %s', [loc_num])
+            for result in results:
+                loc_name = result[1]
+                plot = result[2]
+            return render_template('location.html', loc_num=loc_num, loc_name=loc_name, plot=plot, stats=hero_stats, c1=c1, c2=c2, c3=c3, results=results)
+        
+        elif not c2:
+            results = sql_fetch('SELECT * FROM locations WHERE id = %s', [loc_num])
+            for result in results:
+                loc_name = result[1]
+                plot = result[2]
+            return render_template('location.html', loc_num=loc_num, loc_name=loc_name, plot=plot, stats=hero_stats, c1=c1, m1=m1, results=results)
+
         else:
             results = sql_fetch('SELECT * FROM locations WHERE id = %s', [loc_num])
             for result in results:
@@ -200,6 +220,10 @@ def death():
 def exit():
     session.clear()
     return redirect ('/')
+
+@app.route('/rules')
+def rules():
+    return render_template('rules.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

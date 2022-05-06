@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mighty Badlands</title>
-    <link rel="stylesheet" href="static/game.css">
+    <link rel="stylesheet" href="/static/css/game.css">
 </head>
 <body>
     {% for stat in stats %}
     <div class="hero-stats">
-        {{ stats }}<br>
-        {{ results }}
+        <!-- {{ stats }}<br>
+        {{ results }} -->
         <p>Name: {{ stat[2] }}</p>
         <p>Class: {{ stat[3] }}</p>
         <p>ATK: {{ stat[4] }}</p>
@@ -20,15 +20,24 @@
         <button onclick="window.location.href='/bag'">View Bag</button>
     </div>
     {% endfor %}
-    <!-- <img src="#" alt="a {{ loc_name }}"> -->
-    <p>{{ plot }}</p>
-    <div>
-    <!-- https://stackoverflow.com/questions/34126316/adding-onclick-and-window-location-href -->
-        <button onclick='window.location.href="/location/{{ m1 }}"'>{{ c1 }}</button>
-        <button onclick='window.location.href="/location/{{ m2 }}"'>{{ c2 }}</button>
-        {% if m3 %}
-        <button onclick='window.location.href="/location/{{ m3 }}"'>{{ c3 }}</button>
-        {% endif %}
+    <div id="game">
+        <h2>{{ loc_name.capitalize() }}</h2>
+        <img src="/static/images/{{ loc_num }}.png" alt="{{ loc_name }}"><br><br>
+        <p class="plot">{{ plot }}</p><br>
+        <div class="choices">
+        <!-- https://stackoverflow.com/questions/34126316/adding-onclick-and-window-location-href -->
+            <button onclick='window.location.href="/location/{{ m1 }}"'>{{ c1 }}</button>
+            {% if c2 %}
+            <button onclick='window.location.href="/location/{{ m2 }}"'>{{ c2 }}</button>
+            {% endif %}
+            {% if c3 %}
+            <button onclick='window.location.href="/location/{{ m3 }}"'>{{ c3 }}</button>
+            {% endif %}
+        </div>
     </div>
+    <footer>
+        <br><br>
+        <a href="/">Main Menu</a>
+    </footer>
 </body>
 </html>
