@@ -45,6 +45,6 @@ Future:
 - Reward users for completing story using smart contract
 
 More time than necessary was dedicated to the story structure, which in itself, was a difficult undertaking. 
-![flowchart](/assets/images/Flowchart.jpg)
+![flowchart](/Flowchart.jpg)
 
 It would be interesting to try and using AI-generation for the narrative. Due to the lack of free instant AI text-to-image APIs, each image was manually generated with a string of prompts that I deemed suitable for the location narrative. These images were generated using [Synthia](https://meetsynthia.co), developed by bit_FLIP#2945, which currently works as a Discord bot that is able to AI-generate images and text via user prompts to alarmingly accurate degree.
