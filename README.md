@@ -13,15 +13,15 @@ App features
 
 ## How to install (for Mac OS)
 
-    1. On your terminal, create the database: `createdb mbgame`
-    2. Import the table set: `psql -d mbgame < schema.sql`
-    3. Import the table data: `psql -d mbgame < seed.sql`
-    4. Navigate to the 'database project' folder in the terminal
-    5. On your terminal, import the libraries: `pip install requirements.txt`
-    6. Enter virtual environment: 
-        6.1)`python -m venv venv`
-        6.2)`source venv/bin/activate`
-        6.3) Once you see that there is a '(venv)' prefixing your command line, run `python app.py`
+1. On your terminal, create the database: `createdb mbgame`
+2. Import the table set: `psql -d mbgame < schema.sql`
+3. Import the table data: `psql -d mbgame < seed.sql`
+4. Navigate to the 'database project' folder in the terminal
+5. On your terminal, import the libraries: `pip install requirements.txt`
+6. Enter virtual environment: 
+    6.1)`python -m venv venv`
+    6.2)`source venv/bin/activate`
+    6.3) Once you see that there is a '(venv)' prefixing your command line, run `python app.py`
 
 Complications:
 - Too many tables
